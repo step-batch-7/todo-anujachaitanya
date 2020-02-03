@@ -54,6 +54,23 @@ const getHtmlForTodo = function(todo) {
   return card;
 };
 
+const renderTodoAdder = function() {
+  const taskInputs = document.getElementsByClassName('task');
+  Array.from(taskInputs).forEach(inputBox =>
+    inputBox.parentNode.removeChild(inputBox)
+  );
+  const title = document.getElementById('todoTitle');
+  title.value = '';
+};
+
+const renderNewTodo = function() {
+  renderTodoAdder();
+  const todo = JSON.parse(this.responseText).pop();
+  const todoList = document.getElementById('todoList');
+  const todoHtml = getHtmlForTodo(todo);
+  todoList.prepend(todoHtml);
+};
+
 const renderTodoList = function() {
   const todos = JSON.parse(this.responseText);
   const todoList = document.getElementById('todoList');
@@ -65,11 +82,18 @@ const renderTodoList = function() {
 
 const saveTodo = function() {
   const sendHttpReq = new XMLHttpRequest();
-  sendHttpReq.onload = renderTodoList;
+  sendHttpReq.onload = renderNewTodo;
   const title = document.getElementById('todoTitle').value;
   const todoList = parseTodo(document.getElementsByClassName('task'));
   sendHttpReq.open('POST', '/saveNewTodo');
   sendHttpReq.send(`title=${title}&tasks=${todoList}`);
+};
+
+const getTodos = function() {
+  const xml = new XMLHttpRequest();
+  xml.onload = renderTodoList;
+  xml.open('GET', '/index.html');
+  xml.send();
 };
 
 const attachEventListener = function() {
@@ -78,6 +102,5 @@ const attachEventListener = function() {
 
 const main = function() {
   attachEventListener();
+  getTodos();
 };
-
-window.onload = main;
