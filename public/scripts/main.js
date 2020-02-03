@@ -1,3 +1,5 @@
+const getAddBtn = () => document.querySelector('#save');
+
 const getTask = function() {
   const task = document.createElement('input');
   task.type = 'text';
@@ -17,7 +19,7 @@ const addTask = function(event) {
 
 const attachEventListener = function() {
   todoTitle.onkeypress = addTask;
-  task.onclick = doneTask;
+  getAddBtn().onclick = addToDo;
 };
 
 const main = function() {

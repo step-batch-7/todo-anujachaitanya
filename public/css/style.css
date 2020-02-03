@@ -4,11 +4,11 @@
 }
 
 .heading {
-  align-items: center;
+  text-align: center;
   color: whitesmoke;
-  border-left: 4px solid;
+  border-bottom: 4px solid;
   padding: 0 15px;
-  display: flex;
+  justify-content: center;
   margin: 35px 0;
 }
 
@@ -29,7 +29,9 @@
 }
 
 .todoAdder {
+  margin: 0 auto;
   width: 20%;
+  width: 400px;
   border: 2px solid grey;
   border-radius: 10px;
   padding: 15px 17px;
