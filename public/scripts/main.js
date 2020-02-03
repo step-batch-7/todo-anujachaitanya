@@ -1,5 +1,3 @@
-const getAddBtn = () => document.querySelector('#save');
-
 const getTask = function() {
   const task = document.createElement('input');
   task.type = 'text';
@@ -17,9 +15,26 @@ const addTask = function(event) {
   }
 };
 
+const parseTodo = function(list) {
+  const todoList = [];
+  Array.from(list).forEach(todo => todoList.push(todo.value));
+  return todoList;
+};
+
+const saveTodo = function() {
+  const sendHttpReq = new XMLHttpRequest();
+  sendHttpReq.onload = function() {
+    const todoList = document.getElementById('todoList');
+    todoList.innerHTML = this.responseText;
+  };
+  const title = document.getElementById('todoTitle').value;
+  const todoList = parseTodo(document.getElementsByClassName('task'));
+  sendHttpReq.open('POST', '/saveNewTodo');
+  sendHttpReq.send(`title=${title}&todoList=${todoList}`);
+};
+
 const attachEventListener = function() {
   todoTitle.onkeypress = addTask;
-  getAddBtn().onclick = addToDo;
 };
 
 const main = function() {

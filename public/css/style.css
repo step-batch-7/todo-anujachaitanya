@@ -37,6 +37,12 @@
   padding: 15px 17px;
 }
 
+.todoList {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
 #save {
   width: 20px;
   height: 20px;
