@@ -1,0 +1,13 @@
+* {
+  font-family: sans-serif;
+  background-color: rgb(46, 46, 46);
+}
+
+.heading {
+  align-items: center;
+  color: grey;
+  border-left: 4px solid;
+  padding: 0 15px;
+  display: flex;
+  margin: 30px 0;
+}
