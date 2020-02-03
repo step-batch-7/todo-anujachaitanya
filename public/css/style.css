@@ -5,9 +5,36 @@
 
 .heading {
   align-items: center;
-  color: grey;
+  color: whitesmoke;
   border-left: 4px solid;
   padding: 0 15px;
   display: flex;
-  margin: 30px 0;
+  margin: 35px 0;
+}
+
+#todoTitle {
+  height: 20px;
+  border: none;
+  border-bottom: 2px solid rgb(197, 194, 194);
+  outline: none;
+  font-size: 20px;
+  padding: 5px 10px;
+  color: whitesmoke;
+}
+
+.todoAdder {
+  width: 20%;
+  border: 2px solid grey;
+  border-radius: 10px;
+  padding: 15px 25px;
+}
+
+.task {
+  height: 20px;
+  border: none;
+  border-bottom: 1px solid grey;
+  outline: none;
+  font-size: 15px;
+  padding: 10px 5px 3px;
+  color: whitesmoke;
 }
