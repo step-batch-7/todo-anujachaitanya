@@ -18,12 +18,13 @@ const addTask = function(event) {
 const parseTodo = function(list) {
   const todoList = [];
   Array.from(list).forEach(todo => todoList.push(todo.value));
-  return todoList;
+  return todoList.join('**');
 };
 
 const getHtmlForTodo = function(todo) {
   const card = document.createElement('div');
   card.className = 'todoCard';
+  card.id = todo.id;
   const titleBar = document.createElement('div');
   titleBar.className = 'cardTitleBar';
   const title = document.createElement('p');
