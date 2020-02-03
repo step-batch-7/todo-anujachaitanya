@@ -37,8 +37,35 @@
   padding: 15px 17px;
 }
 
-.todoList {
+.cardTitle {
+  font-size: 18px;
+  color: whitesmoke;
+}
+
+.cardTitleBar {
   display: flex;
+  flex-flow: row;
+  color: whitesmoke;
+  border-bottom: solid 1px whitesmoke;
+}
+
+.task {
+  font-size: 15px;
+  color: whitesmoke;
+}
+
+.todoCard {
+  width: 200px;
+  display: flex;
+  flex-flow: column;
+  border: solid 1px grey;
+  border-radius: 5px;
+  margin: 15px;
+}
+
+#todoList {
+  display: flex;
+  flex-flow: row;
   justify-content: space-around;
   flex-wrap: wrap;
 }
