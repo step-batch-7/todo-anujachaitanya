@@ -21,17 +21,36 @@ const parseTodo = function(list) {
   return todoList.join('**');
 };
 
+const createTitleBar = function(titleText) {
+  const titleBar = document.createElement('div');
+  titleBar.className = 'cardTitleBar';
+  const title = document.createElement('p');
+  title.innerText = titleText;
+  title.className = 'cardTitle';
+  titleBar.appendChild(title);
+  return titleBar;
+};
+
+const createTaskBar = function(list) {
+  const taskBar = document.createElement('div');
+  taskBar.className = 'taskList';
+  list.forEach(task => {
+    let taskElement = document.createElement('p');
+    taskElement.className = 'savedTask';
+    taskElement.innerText = task;
+    taskBar.appendChild(taskElement);
+  });
+  return taskBar;
+};
+
 const getHtmlForTodo = function(todo) {
   const card = document.createElement('div');
   card.className = 'todoCard';
   card.id = todo.id;
-  const titleBar = document.createElement('div');
-  titleBar.className = 'cardTitleBar';
-  const title = document.createElement('p');
-  title.innerText = todo.title;
-  title.className = 'cardTitle';
-  titleBar.appendChild(title);
+  const titleBar = createTitleBar(todo.title);
+  const taskBar = createTaskBar(todo.tasks);
   card.appendChild(titleBar);
+  card.appendChild(taskBar);
   return card;
 };
 
