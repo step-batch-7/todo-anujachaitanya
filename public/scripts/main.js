@@ -1,21 +1,23 @@
-const getTaskField = function() {
+const getTask = function() {
   const task = document.createElement('input');
   task.type = 'text';
   task.className = 'task';
-  task.onkeypress = addTaskFieldOnEnter;
+  task.id = new Date().valueOf();
+  task.onkeypress = addTask;
   return task;
 };
 
-const addTaskFieldOnEnter = function(event) {
+const addTask = function(event) {
   if (event.key === 'Enter') {
     const newTodoBox = document.querySelector('.todoAdder');
-    newTodoBox.append(getTaskField());
+    newTodoBox.append(getTask());
     newTodoBox.lastChild.focus();
   }
 };
 
 const attachEventListener = function() {
-  todoTitle.onkeypress = addTaskFieldOnEnter;
+  todoTitle.onkeypress = addTask;
+  task.onclick = doneTask;
 };
 
 const main = function() {
