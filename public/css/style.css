@@ -23,9 +23,18 @@
   color: whitesmoke;
 }
 
+.deleteLogo {
+  width: 20px;
+  height: 20px;
+  margin-left: auto;
+  margin-top: 18px;
+  margin-right: 12px;
+}
+
 .todoTitleBar {
   display: flex;
   flex-flow: row;
+  justify-content: space-between;
 }
 
 .todoAdder {
@@ -49,7 +58,9 @@
   margin-bottom: 0px;
   border: none;
   border-radius: 10px;
+  border-bottom: solid 1px grey;
   color: whitesmoke;
+  width: 100%;
 }
 
 .taskList {
@@ -57,8 +68,7 @@
   margin-bottom: 10px;
   display: flex;
   flex-flow: column;
-  border: none;
-  border-radius: 10px;
+  width: 100%;
 }
 
 .savedTask {
@@ -79,7 +89,6 @@
   border: 1px solid grey;
   border-radius: 10px;
   margin: 20px;
-  position: relative;
 }
 
 #todoList {

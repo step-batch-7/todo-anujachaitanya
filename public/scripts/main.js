@@ -28,10 +28,15 @@ const createTitleBar = function(titleText) {
   title.innerText = titleText;
   title.className = 'cardTitle';
   titleBar.appendChild(title);
+  let deletePng = document.createElement('img');
+  deletePng.src = 'images/delete.png';
+  deletePng.className = 'deleteLogo';
+  deletePng.onclick = 'deleteTodo()';
+  titleBar.appendChild(deletePng);
   return titleBar;
 };
 
-const createTaskBar = function(list) {
+const createTaskList = function(list) {
   const taskBar = document.createElement('div');
   taskBar.className = 'taskList';
   list.forEach(task => {
@@ -49,7 +54,7 @@ const getHtmlForTodo = function(todo) {
   card.className = 'todoCard';
   card.id = todo.id;
   const titleBar = createTitleBar(todo.title);
-  const taskBar = createTaskBar(todo.tasks);
+  const taskBar = createTaskList(todo.tasks);
   card.appendChild(titleBar);
   card.appendChild(taskBar);
   return card;
