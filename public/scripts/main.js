@@ -21,6 +21,13 @@ const parseTodo = function(list) {
   return todoList.join('**');
 };
 
+const deleteTodo = function(event) {
+  const sendHttpReq = new XMLHttpRequest();
+  sendHttpReq.onload = renderNewTodo;
+  sendHttpReq.open('GET', '/index.html');
+  sendHttpReq.send();
+};
+
 const createTitleBar = function(titleText) {
   const titleBar = document.createElement('div');
   titleBar.className = 'cardTitleBar';
@@ -31,7 +38,7 @@ const createTitleBar = function(titleText) {
   let deletePng = document.createElement('img');
   deletePng.src = 'images/delete.png';
   deletePng.className = 'deleteLogo';
-  deletePng.onclick = 'deleteTodo()';
+  deletePng.onclick = deleteTodo;
   titleBar.appendChild(deletePng);
   return titleBar;
 };
@@ -39,11 +46,11 @@ const createTitleBar = function(titleText) {
 const createTaskList = function(list) {
   const taskBar = document.createElement('div');
   taskBar.className = 'taskList';
-  list.forEach(task => {
+  Object.keys(list).forEach(id => {
     let taskElement = document.createElement('p');
     taskElement.className = 'savedTask';
-    taskElement.innerText = task.task;
-    taskElement.id = task.id;
+    taskElement.innerText = list[id].task;
+    taskElement.id = id;
     taskBar.appendChild(taskElement);
   });
   return taskBar;
@@ -71,17 +78,18 @@ const renderTodoAdder = function() {
 
 const renderNewTodo = function() {
   renderTodoAdder();
-  const todo = JSON.parse(this.responseText).pop();
+  const todo = JSON.parse(this.responseText);
   const todoList = document.getElementById('todoList');
   const todoHtml = getHtmlForTodo(todo);
   todoList.prepend(todoHtml);
 };
 
 const renderTodoList = function() {
+  console.log(this.responseText);
   const todos = JSON.parse(this.responseText);
   const todoList = document.getElementById('todoList');
-  Array.from(todos).forEach(todo => {
-    const todoHtml = getHtmlForTodo(todo);
+  Object.keys(todos).forEach(todo => {
+    const todoHtml = getHtmlForTodo(todos[todo]);
     todoList.prepend(todoHtml);
   });
 };
