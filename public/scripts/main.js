@@ -44,17 +44,48 @@ const createTitleBar = function(titleText) {
   return titleBar;
 };
 
+const getTaskElement = function(path) {
+  let [element] = Array.from(path).filter(path => path.className == 'taskBar');
+  return element;
+};
+
+const toggleTaskStatus = event => {
+  const element = getTaskElement(event.path);
+  const taskId = element.id;
+  const todoId = element.parentNode.parentNode.id;
+  const sendHttpReq = new XMLHttpRequest();
+  sendHttpReq.onload = renderTodoList;
+  sendHttpReq.open('POST', '/toggleTaskStatus');
+  sendHttpReq.send(`todoId=${todoId}&taskId=${taskId}`);
+};
+
+const createTask = function(taskList, list, id) {
+  let taskBar = document.createElement('div');
+  taskBar.className = 'taskBar';
+  taskBar.onclick = toggleTaskStatus;
+  taskBar.id = id;
+  const statusLookup = {
+    true: 'images/pngwave(1).png',
+    false: 'images/pngwave.png'
+  };
+  let checkBox = document.createElement('img');
+  checkBox.src = statusLookup[list[id].isDone];
+  checkBox.className = 'checkBox';
+  taskBar.appendChild(checkBox);
+  let taskElement = document.createElement('p');
+  taskElement.className = 'savedTask';
+  taskElement.innerText = list[id].task;
+  taskBar.appendChild(taskElement);
+  taskList.appendChild(taskBar);
+};
+
 const createTaskList = function(list) {
-  const taskBar = document.createElement('div');
-  taskBar.className = 'taskList';
+  const taskList = document.createElement('div');
+  taskList.className = 'taskList';
   Object.keys(list).forEach(id => {
-    let taskElement = document.createElement('p');
-    taskElement.className = 'savedTask';
-    taskElement.innerText = list[id].task;
-    taskElement.id = id;
-    taskBar.appendChild(taskElement);
+    createTask(taskList, list, id);
   });
-  return taskBar;
+  return taskList;
 };
 
 const getHtmlForTodo = function(todo) {

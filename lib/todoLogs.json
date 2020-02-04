@@ -1,38 +1,11 @@
 {
-  "12864": {
-    "title": "Titel ",
+  "1736": {
+    "title": "Today",
     "tasks": {
-      "32": { "task": "hedfds", "isDone": false },
-      "33": { "task": "sdfd", "isDone": false },
-      "34": { "task": "fds", "isDone": false }
+      "42": { "task": "buy milk", "isDone": true },
+      "43": { "task": "ok", "isDone": true },
+      "44": { "task": "k", "isDone": true }
     },
-    "id": 12864
-  },
-  "37135": {
-    "title": "title",
-    "tasks": {
-      "14": { "task": "fdjhfds", "isDone": false },
-      "15": { "task": "sdf", "isDone": false },
-      "16": { "task": "dsf", "isDone": false },
-      "17": { "task": "dsfds", "isDone": false },
-      "18": { "task": "ds", "isDone": false }
-    },
-    "id": 37135
-  },
-  "39751": {
-    "title": "Titel ",
-    "tasks": {
-      "89": { "task": "hoe", "isDone": false },
-      "90": { "task": "", "isDone": false }
-    },
-    "id": 39751
-  },
-  "93209": {
-    "title": "Title ",
-    "tasks": {
-      "58": { "task": "hello ", "isDone": false },
-      "59": { "task": "how are you ", "isDone": false }
-    },
-    "id": 93209
+    "id": 1736
   }
 }
