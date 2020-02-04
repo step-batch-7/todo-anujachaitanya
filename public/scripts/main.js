@@ -4,6 +4,7 @@ const getTask = function() {
   task.className = 'task';
   task.id = new Date().valueOf();
   task.onkeypress = addTask;
+  task.onkeyup = removeTask;
   return task;
 };
 
@@ -12,6 +13,13 @@ const addTask = function(event) {
     const newTodoBox = document.querySelector('.todoAdder');
     newTodoBox.append(getTask());
     newTodoBox.lastChild.focus();
+  }
+};
+
+const removeTask = function(event) {
+  if (event.key === 'Backspace') {
+    event.target.previousElementSibling.focus();
+    event.target.remove();
   }
 };
 

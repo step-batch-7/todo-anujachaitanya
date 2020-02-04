@@ -6,7 +6,7 @@
 .heading {
   text-align: center;
   color: whitesmoke;
-  border-bottom: 4px solid;
+  border-bottom: 2px solid darkgray;
   padding: 0 15px;
   justify-content: center;
   margin: 35px 0;
@@ -90,17 +90,18 @@
 }
 
 .todoCard {
-  width: 200px;
+  width: 250px;
   display: flex;
   flex-flow: column;
   border: 1px solid grey;
   border-radius: 10px;
-  margin: 20px;
+  height: fit-content;
+  margin: 10px;
 }
 
 #todoList {
   display: flex;
-  flex-flow: row;
+  flex-wrap: wrap;
   justify-content: space-around;
   flex-wrap: wrap;
   margin-top: 20px;
@@ -115,6 +116,7 @@
 .taskBar {
   display: flex;
   flex-flow: row;
+  overflow: scroll;
 }
 
 .checkBox {
