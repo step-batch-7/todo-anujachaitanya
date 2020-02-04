@@ -14,7 +14,7 @@ describe('GET /', () => {
   it('should return css file', done => {
     request(app.serve.bind(app))
       .get('/css/style.css')
-      .expect('Content-Length', '2046')
+      .expect('Content-Length', '2084')
       .expect('Content-Type', 'text/css')
       .expect(200, done);
   });

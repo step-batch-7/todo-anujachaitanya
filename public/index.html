@@ -12,14 +12,36 @@
     <div class="heading">
       <h1>TO-DO</h1>
     </div>
-
-    <div class="todoAdder">
+    <div class="noneDisplay" id="todoEditor">
       <div class="todoTitleBar">
-        <input type="text" id="todoTitle" placeholder="Title" />
-        <img src="images/save.png" alt="save" id="save" onclick="saveTodo()" />
+        <input
+          type="text"
+          class="todoTitle"
+          id="updatedTitle"
+          placeholder="Title"
+        />
+        <img src="images/save.png" id="save" onclick="updateTodo()" />
       </div>
     </div>
+    <div>
+      <div class="todoAdder">
+        <div class="todoTitleBar">
+          <input
+            type="text"
+            class="todoTitle"
+            id="newTitle"
+            placeholder="Title"
+          />
+          <img
+            src="images/save.png"
+            alt="save"
+            id="save"
+            onclick="saveTodo()"
+          />
+        </div>
+      </div>
 
-    <div id="todoList"></div>
+      <div id="todoList"></div>
+    </div>
   </body>
 </html>

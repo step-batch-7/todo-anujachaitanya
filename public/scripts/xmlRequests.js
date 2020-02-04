@@ -14,7 +14,7 @@ const parseTodo = function(list) {
 const saveTodo = function() {
   const sendHttpReq = new XMLHttpRequest();
   sendHttpReq.onload = renderNewTodo;
-  const title = document.getElementById('todoTitle').value;
+  const title = document.getElementById('newTitle').value;
   const todoList = parseTodo(document.getElementsByClassName('task'));
   sendHttpReq.open('POST', '/saveNewTodo');
   sendHttpReq.send(`title=${title}&tasks=${todoList}`);

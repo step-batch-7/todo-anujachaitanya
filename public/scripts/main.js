@@ -2,7 +2,6 @@ const getTask = function() {
   const task = document.createElement('input');
   task.type = 'text';
   task.className = 'task';
-  task.id = new Date().valueOf();
   task.onkeypress = addTask;
   task.onkeyup = removeTask;
   return task;
@@ -20,10 +19,30 @@ const removeTask = function(event) {
   if (event.key === 'Backspace' && event.target.value === '') {
     const sibling = event.target.previousElementSibling;
     sibling.className === 'todoTitleBar'
-      ? document.getElementById('todoTitle').focus()
+      ? document.getElementById('newTitle').focus()
       : sibling.focus();
     event.target.remove();
   }
+};
+
+const setEditorForTodo = function(id, editor) {
+  const todo = document.getElementById(id);
+  const [title, tasks] = Array.from(todo.children);
+  const titleBar = document.getElementById('updatedTitle');
+  titleBar.value = title.innerText;
+  tasks.innerText.split('\n\n').forEach(task => {
+    const taskBar = getTask();
+    taskBar.value = task;
+    editor.appendChild(taskBar);
+  });
+};
+
+const updateTodo = function(event) {
+  const id = event.target.parentNode.parentNode.id;
+  const editor = document.getElementById('todoEditor');
+  editor.classList.remove('noneDisplay');
+  editor.classList.add('todoEditor');
+  setEditorForTodo(id, editor);
 };
 
 const getTitleElement = function(titleText) {
@@ -37,6 +56,7 @@ const createTitleBar = function(titleText) {
   const titleBar = document.createElement('div');
   titleBar.className = 'cardTitleBar';
   const title = getTitleElement(titleText);
+  title.onclick = updateTodo;
   titleBar.appendChild(title);
   const deletePng = document.createElement('img');
   deletePng.className = 'deleteLogo';
@@ -99,7 +119,7 @@ const renderTodoAdder = function() {
   Array.from(taskInputs).forEach(inputBox =>
     inputBox.parentNode.removeChild(inputBox)
   );
-  const title = document.getElementById('todoTitle');
+  const title = document.getElementById('newTitle');
   title.value = '';
 };
 
@@ -122,7 +142,7 @@ const renderTodoList = function() {
 };
 
 const attachEventListener = function() {
-  todoTitle.onkeypress = addTask;
+  newTitle.onkeypress = addTask;
 };
 
 const main = function() {
