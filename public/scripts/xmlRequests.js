@@ -21,7 +21,9 @@ const saveTodo = function() {
 };
 
 const getTaskElement = function(path) {
-  let [element] = Array.from(path).filter(path => path.className == 'taskBar');
+  const [element] = Array.from(path).filter(
+    path => path.className === 'taskBar'
+  );
   return element;
 };
 

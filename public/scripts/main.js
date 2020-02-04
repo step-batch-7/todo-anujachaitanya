@@ -17,51 +17,59 @@ const addTask = function(event) {
 };
 
 const removeTask = function(event) {
-  if (event.key === 'Backspace' && event.target.value == '') {
-    let sibling = event.target.previousElementSibling;
-    console.log(sibling);
-    sibling.className == 'todoTitleBar'
+  if (event.key === 'Backspace' && event.target.value === '') {
+    const sibling = event.target.previousElementSibling;
+    sibling.className === 'todoTitleBar'
       ? document.getElementById('todoTitle').focus()
       : sibling.focus();
     event.target.remove();
   }
 };
 
-const createTitleBar = function(titleText) {
-  const titleBar = document.createElement('div');
-  titleBar.className = 'cardTitleBar';
+const getTitleElement = function(titleText) {
   const title = document.createElement('p');
   title.innerText = titleText;
   title.className = 'cardTitle';
+  return title;
+};
+
+const createTitleBar = function(titleText) {
+  const titleBar = document.createElement('div');
+  titleBar.className = 'cardTitleBar';
+  const title = getTitleElement(titleText);
   titleBar.appendChild(title);
-  let deletePng = document.createElement('img');
-  deletePng.src = 'images/delete.png';
+  const deletePng = document.createElement('img');
   deletePng.className = 'deleteLogo';
   deletePng.onclick = deleteTodo;
   titleBar.appendChild(deletePng);
   return titleBar;
 };
 
-const createTask = function(taskList, list, id) {
-  let taskBar = document.createElement('div');
-  taskBar.className = 'taskBar';
-  taskBar.onclick = toggleTaskStatus;
-  taskBar.id = id;
+const getTaskBarElements = (list, id) => {
   const statusLookup = {
-    true: 'images/pngwave(1).png',
-    false: 'images/pngwave.png'
+    true: 'images/checked.png',
+    false: 'images/unchecked.png'
   };
   const textStyleLookup = {
     false: 'savedTask',
     true: 'taskDone'
   };
-  let checkBox = document.createElement('img');
+  const checkBox = document.createElement('img');
   checkBox.src = statusLookup[list[id].isDone];
   checkBox.className = 'checkBox';
-  taskBar.appendChild(checkBox);
-  let taskElement = document.createElement('p');
+  const taskElement = document.createElement('p');
   taskElement.className = textStyleLookup[list[id].isDone];
   taskElement.innerText = list[id].task;
+  return { checkBox, taskElement };
+};
+
+const createTask = function(taskList, list, id) {
+  const taskBar = document.createElement('div');
+  taskBar.className = 'taskBar';
+  taskBar.onclick = toggleTaskStatus;
+  taskBar.id = id;
+  const { checkBox, taskElement } = getTaskBarElements(list, id);
+  taskBar.appendChild(checkBox);
   taskBar.appendChild(taskElement);
   taskList.appendChild(taskBar);
 };
