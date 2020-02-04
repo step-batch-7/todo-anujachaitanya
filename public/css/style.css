@@ -38,6 +38,7 @@
 
 .cardTitle {
   font-size: 18px;
+  font-weight: 700;
   margin-left: 10px;
   color: whitesmoke;
 }
@@ -45,20 +46,23 @@
 .cardTitleBar {
   display: flex;
   flex-flow: row;
-  margin: 0px;
+  margin-bottom: 0px;
+  border: none;
+  border-radius: 10px;
   color: whitesmoke;
-  border-left: solid 3px whitesmoke;
-  border-bottom: solid 1px grey;
 }
 
 .taskList {
-  margin-top: 20px;
+  margin-top: 0px;
+  margin-bottom: 10px;
   display: flex;
   flex-flow: column;
+  border: none;
+  border-radius: 10px;
 }
 
 .savedTask {
-  margin: 5px 5px 5px 5px;
+  margin: 10px;
   font-size: 15px;
   color: whitesmoke;
 }
@@ -75,6 +79,7 @@
   border: 1px solid grey;
   border-radius: 10px;
   margin: 20px;
+  position: relative;
 }
 
 #todoList {
@@ -82,6 +87,7 @@
   flex-flow: row;
   justify-content: space-around;
   flex-wrap: wrap;
+  margin-top: 20px;
 }
 
 #save {

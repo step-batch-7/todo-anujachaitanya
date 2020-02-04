@@ -37,7 +37,8 @@ const createTaskBar = function(list) {
   list.forEach(task => {
     let taskElement = document.createElement('p');
     taskElement.className = 'savedTask';
-    taskElement.innerText = task;
+    taskElement.innerText = task.task;
+    taskElement.id = task.id;
     taskBar.appendChild(taskElement);
   });
   return taskBar;
