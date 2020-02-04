@@ -18,6 +18,21 @@ describe('GET /', () => {
       .expect('Content-Type', 'text/css')
       .expect(200, done);
   });
+
+  it('should return png file', done => {
+    request(app.serve.bind(app))
+      .get('/images/save.png')
+      .expect('Content-Length', '18895')
+      .expect('Content-Type', 'image/png')
+      .expect(200, done);
+  });
+
+  it('should return js file', done => {
+    request(app.serve.bind(app))
+      .get('/scripts/main.js')
+      .expect('Content-Type', 'application/javascript')
+      .expect(200, done);
+  });
 });
 
 describe('POST /', () => {
