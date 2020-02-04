@@ -82,6 +82,13 @@
   color: whitesmoke;
 }
 
+.taskDone {
+  margin: 10px;
+  font-size: 15px;
+  color: rgb(177, 174, 174);
+  text-decoration: line-through;
+}
+
 .todoCard {
   width: 200px;
   display: flex;
@@ -109,6 +116,7 @@
   display: flex;
   flex-flow: row;
 }
+
 .checkBox {
   width: 20px;
   height: 20px;

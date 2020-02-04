@@ -39,12 +39,16 @@ const createTask = function(taskList, list, id) {
     true: 'images/pngwave(1).png',
     false: 'images/pngwave.png'
   };
+  const textStyleLookup = {
+    false: 'savedTask',
+    true: 'taskDone'
+  };
   let checkBox = document.createElement('img');
   checkBox.src = statusLookup[list[id].isDone];
   checkBox.className = 'checkBox';
   taskBar.appendChild(checkBox);
   let taskElement = document.createElement('p');
-  taskElement.className = 'savedTask';
+  taskElement.className = textStyleLookup[list[id].isDone];
   taskElement.innerText = list[id].task;
   taskBar.appendChild(taskElement);
   taskList.appendChild(taskBar);
