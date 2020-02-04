@@ -17,8 +17,12 @@ const addTask = function(event) {
 };
 
 const removeTask = function(event) {
-  if (event.key === 'Backspace') {
-    event.target.previousElementSibling.focus();
+  if (event.key === 'Backspace' && event.target.value == '') {
+    let sibling = event.target.previousElementSibling;
+    console.log(sibling);
+    sibling.className == 'todoTitleBar'
+      ? document.getElementById('todoTitle').focus()
+      : sibling.focus();
     event.target.remove();
   }
 };
