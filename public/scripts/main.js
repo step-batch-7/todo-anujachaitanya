@@ -23,9 +23,10 @@ const parseTodo = function(list) {
 
 const deleteTodo = function(event) {
   const sendHttpReq = new XMLHttpRequest();
-  sendHttpReq.onload = renderNewTodo;
-  sendHttpReq.open('GET', '/index.html');
-  sendHttpReq.send();
+  sendHttpReq.onload = renderTodoList;
+  sendHttpReq.open('POST', '/deleteTodo');
+  const id = event.target.parentNode.parentNode.id;
+  sendHttpReq.send(`id=${id}`);
 };
 
 const createTitleBar = function(titleText) {
@@ -85,9 +86,9 @@ const renderNewTodo = function() {
 };
 
 const renderTodoList = function() {
-  console.log(this.responseText);
   const todos = JSON.parse(this.responseText);
   const todoList = document.getElementById('todoList');
+  todoList.innerHTML = '';
   Object.keys(todos).forEach(todo => {
     const todoHtml = getHtmlForTodo(todos[todo]);
     todoList.prepend(todoHtml);
