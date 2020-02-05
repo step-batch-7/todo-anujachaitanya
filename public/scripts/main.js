@@ -133,10 +133,12 @@ const renderTodoList = function() {
   const todos = JSON.parse(this.responseText);
   const todoList = document.getElementById('todoList');
   todoList.innerHTML = '';
-  Object.keys(todos).forEach(todo => {
-    const todoHtml = getHtmlForTodo(todos[todo]);
-    todoList.prepend(todoHtml);
-  });
+  Object.keys(todos)
+    .sort()
+    .forEach(todo => {
+      const todoHtml = getHtmlForTodo(todos[todo]);
+      todoList.prepend(todoHtml);
+    });
 };
 
 const attachEventListener = function() {
