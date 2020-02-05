@@ -37,9 +37,10 @@ const setEditorForTodo = function(id) {
   editorTasks.id = `${id}-editor`;
   const titleBar = document.getElementById('updatedTitle');
   titleBar.value = title.innerText;
-  tasks.innerText.split('\n\n').forEach(task => {
+  Array.from(tasks.children).forEach(task => {
     const taskBar = getTask();
-    taskBar.value = task;
+    taskBar.value = task.innerText;
+    taskBar.id = `${task.id}-task`;
     editorTasks.appendChild(taskBar);
   });
 };
