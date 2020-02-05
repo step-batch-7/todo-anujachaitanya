@@ -24,7 +24,7 @@ const addTask = function(event) {
 const removeTask = function(event) {
   if (event.key === 'Backspace' && event.target.value === '') {
     const sibling = event.target.previousElementSibling;
-    sibling.focus();
+    sibling && sibling.focus();
     event.target.remove();
   }
 };
