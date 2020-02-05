@@ -112,7 +112,7 @@
 }
 
 .todoCard {
-  width: 250px;
+  width: 280px;
   display: flex;
   flex-flow: column;
   border: 1px solid grey;

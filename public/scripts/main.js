@@ -62,27 +62,15 @@ const resetScreen = function() {
   container.classList.remove('viewDimmed');
 };
 
-const getTitleElement = function(titleText) {
-  const title = document.createElement('p');
-  title.innerText = titleText;
-  title.className = 'cardTitle';
-  return title;
+const getTitleBar = function(title) {
+  let html = '<div class="cardTitleBar">';
+  html += `<p class="cardTitle" onclick="setEditor(event)">${title}</p>`;
+  html += '<img class="deleteLogo" onclick="deleteTodo(event)"/>';
+  html += '</div>';
+  return html;
 };
 
-const createTitleBar = function(titleText) {
-  const titleBar = document.createElement('div');
-  titleBar.className = 'cardTitleBar';
-  const title = getTitleElement(titleText);
-  title.onclick = setEditor;
-  titleBar.appendChild(title);
-  const deletePng = document.createElement('img');
-  deletePng.className = 'deleteLogo';
-  deletePng.onclick = deleteTodo;
-  titleBar.appendChild(deletePng);
-  return titleBar;
-};
-
-const getTaskBarElements = (list, id) => {
+const createTaskElements = function(list, id) {
   const statusLookup = {
     true: 'images/checked.png',
     false: 'images/unchecked.png'
@@ -91,43 +79,35 @@ const getTaskBarElements = (list, id) => {
     false: 'savedTask',
     true: 'taskDone'
   };
-  const checkBox = document.createElement('img');
-  checkBox.src = statusLookup[list[id].isDone];
-  checkBox.className = 'checkBox';
-  const taskElement = document.createElement('p');
-  taskElement.className = textStyleLookup[list[id].isDone];
-  taskElement.innerText = list[id].task;
-  return { checkBox, taskElement };
+  let html = '<div class="taskBar" onclick="toggleTaskStatus(event)"';
+  html += `id=${id}>`;
+  html += `<img src=${statusLookup[list[id].isDone]} class="checkBox">`;
+  html += `<p class=${textStyleLookup[list[id].isDone]}>${list[id].task}</p>`;
+  html += '</div>';
+  return html;
 };
 
-const createTask = function(taskList, list, id) {
-  const taskBar = document.createElement('div');
-  taskBar.className = 'taskBar';
-  taskBar.onclick = toggleTaskStatus;
-  taskBar.id = id;
-  const { checkBox, taskElement } = getTaskBarElements(list, id);
-  taskBar.appendChild(checkBox);
-  taskBar.appendChild(taskElement);
-  taskList.appendChild(taskBar);
-};
-
-const createTaskList = function(list) {
-  const taskList = document.createElement('div');
-  taskList.className = 'taskList';
-  Object.keys(list).forEach(id => {
-    createTask(taskList, list, id);
+const getTaskBars = function(list) {
+  let html = '<div class="taskList">';
+  const taskHtml = Object.keys(list).map(id => {
+    return createTaskElements(list, id);
   });
-  return taskList;
+  html += taskHtml.join('');
+  html += '</div>';
+  return html;
+};
+
+const getCardHtml = function(todo) {
+  const titleBar = getTitleBar(todo.title);
+  const taskBars = getTaskBars(todo.tasks);
+  return titleBar + taskBars;
 };
 
 const getHtmlForTodo = function(todo) {
   const card = document.createElement('div');
   card.className = 'todoCard';
   card.id = todo.id;
-  const titleBar = createTitleBar(todo.title);
-  const taskBar = createTaskList(todo.tasks);
-  card.appendChild(titleBar);
-  card.appendChild(taskBar);
+  card.innerHTML = getCardHtml(todo);
   return card;
 };
 
