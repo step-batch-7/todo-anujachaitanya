@@ -1,3 +1,4 @@
+/* eslint-disable no-magic-numbers */
 const getTodos = function() {
   const xml = new XMLHttpRequest();
   xml.onload = renderTodoList;
@@ -21,18 +22,18 @@ const saveTodo = function() {
 };
 
 const updateTodo = function() {
-  const updatedTitle = document.getElementById('updatedTitle');
-  const todoEditor = document.getElementById('editorTasks');
-  const [title, ...inputs] = Array.from(todoEditor.children);
-  const tasks = [];
-  inputs.forEach(input => tasks.push(input.value));
+  const updatedTitle = document.getElementById('updatedTitle').value;
+  const todoEditor = document.getElementsByClassName('editorTasks')[0];
+  const [todoId] = todoEditor.id.split('-');
+  const [...inputs] = Array.from(todoEditor.children);
+  const tasks = parseTodo(inputs);
   const xml = new XMLHttpRequest();
   xml.onload = function() {
     resetScreen();
-    renderTodoList.bind({ responseText: this.responseText });
+    renderTodoList.call({ responseText: this.responseText });
   };
   xml.open('POST', '/updateTodo');
-  xml.send(`updatedTitle=${updatedTitle}&tasks=${tasks}&id=${updatedTitle.id}`);
+  xml.send(`updatedTitle=${updatedTitle}&tasks=${tasks}&todoId=${todoId}`);
 };
 
 const getTaskElement = function(path) {

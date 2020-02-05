@@ -10,12 +10,12 @@ const getTask = function() {
 };
 
 const addTask = function(event) {
-  const eventClass = event.target.parentElement.id;
+  const eventClass = event.target.parentNode.className;
   if (event.key === 'Enter' && event.target.value !== '') {
     const newTodoBox =
       eventClass === 'editorTasks'
-        ? document.querySelector('#editorTasks')
-        : document.querySelector('.todoAdder');
+        ? document.getElementsByClassName('editorTasks')[0]
+        : document.querySelector('#todoAdder');
     newTodoBox.append(getTask());
     newTodoBox.lastChild.focus();
   }
@@ -32,7 +32,9 @@ const removeTask = function(event) {
 const setEditorForTodo = function(id) {
   const todo = document.getElementById(id);
   const [title, tasks] = Array.from(todo.children);
-  const editorTasks = document.getElementById('editorTasks');
+  const editorTasks = document.getElementsByClassName('editorTasks')[0];
+  editorTasks.innerHTML = '';
+  editorTasks.id = `${id}-editor`;
   const titleBar = document.getElementById('updatedTitle');
   titleBar.value = title.innerText;
   tasks.innerText.split('\n\n').forEach(task => {
