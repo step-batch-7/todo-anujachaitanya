@@ -20,6 +20,21 @@ const saveTodo = function() {
   sendHttpReq.send(`title=${title}&tasks=${todoList}`);
 };
 
+const updateTodo = function() {
+  const updatedTitle = document.getElementById('updatedTitle');
+  const todoEditor = document.getElementById('editorTasks');
+  const [title, ...inputs] = Array.from(todoEditor.children);
+  const tasks = [];
+  inputs.forEach(input => tasks.push(input.value));
+  const xml = new XMLHttpRequest();
+  xml.onload = function() {
+    resetScreen();
+    renderTodoList.bind({ responseText: this.responseText });
+  };
+  xml.open('POST', '/updateTodo');
+  xml.send(`updatedTitle=${updatedTitle}&tasks=${tasks}&id=${updatedTitle.id}`);
+};
+
 const getTaskElement = function(path) {
   const [element] = Array.from(path).filter(
     path => path.className === 'taskBar'

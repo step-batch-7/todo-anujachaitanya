@@ -1,15 +1,21 @@
+/* eslint-disable no-magic-numbers */
 const getTask = function() {
   const task = document.createElement('input');
   task.type = 'text';
   task.className = 'task';
   task.onkeypress = addTask;
   task.onkeyup = removeTask;
+  task.id = Math.floor(Math.random() * 100000);
   return task;
 };
 
 const addTask = function(event) {
-  if (event.key === 'Enter') {
-    const newTodoBox = document.querySelector('.todoAdder');
+  const eventClass = event.target.parentElement.id;
+  if (event.key === 'Enter' && event.target.value !== '') {
+    const newTodoBox =
+      eventClass === 'editorTasks'
+        ? document.querySelector('#editorTasks')
+        : document.querySelector('.todoAdder');
     newTodoBox.append(getTask());
     newTodoBox.lastChild.focus();
   }
@@ -18,31 +24,40 @@ const addTask = function(event) {
 const removeTask = function(event) {
   if (event.key === 'Backspace' && event.target.value === '') {
     const sibling = event.target.previousElementSibling;
-    sibling.className === 'todoTitleBar'
-      ? document.getElementById('newTitle').focus()
-      : sibling.focus();
+    sibling.focus();
     event.target.remove();
   }
 };
 
-const setEditorForTodo = function(id, editor) {
+const setEditorForTodo = function(id) {
   const todo = document.getElementById(id);
   const [title, tasks] = Array.from(todo.children);
+  const editorTasks = document.getElementById('editorTasks');
   const titleBar = document.getElementById('updatedTitle');
   titleBar.value = title.innerText;
   tasks.innerText.split('\n\n').forEach(task => {
     const taskBar = getTask();
     taskBar.value = task;
-    editor.appendChild(taskBar);
+    editorTasks.appendChild(taskBar);
   });
 };
 
-const updateTodo = function(event) {
+const setEditor = function(event) {
   const id = event.target.parentNode.parentNode.id;
   const editor = document.getElementById('todoEditor');
   editor.classList.remove('noneDisplay');
   editor.classList.add('todoEditor');
-  setEditorForTodo(id, editor);
+  const container = document.getElementById('container');
+  container.classList.add('viewDimmed');
+  setEditorForTodo(id);
+};
+
+const resetScreen = function() {
+  const editor = document.getElementById('todoEditor');
+  editor.classList.remove('todoEditor');
+  editor.classList.add('noneDisplay');
+  const container = document.getElementById('container');
+  container.classList.remove('viewDimmed');
 };
 
 const getTitleElement = function(titleText) {
@@ -56,7 +71,7 @@ const createTitleBar = function(titleText) {
   const titleBar = document.createElement('div');
   titleBar.className = 'cardTitleBar';
   const title = getTitleElement(titleText);
-  title.onclick = updateTodo;
+  title.onclick = setEditor;
   titleBar.appendChild(title);
   const deletePng = document.createElement('img');
   deletePng.className = 'deleteLogo';

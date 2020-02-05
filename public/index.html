@@ -14,17 +14,14 @@
     </div>
     <div class="noneDisplay" id="todoEditor">
       <div class="todoTitleBar">
-        <input
-          type="text"
-          class="todoTitle"
-          id="updatedTitle"
-          placeholder="Title"
-        />
-        <img src="images/save.png" id="save" onclick="updateTodo()" />
+        <input type="text" class="todoTitle" id="updatedTitle" />
+        <img src="images/save.png" class="save" onclick="updateTodo(event)" />
       </div>
+      <div id="editorTasks"></div>
+      <div><p id="close" onclick="resetScreen()">Close</p></div>
     </div>
-    <div>
-      <div class="todoAdder">
+    <div class="view" id="container">
+      <div class="todoAdder" id="todoAdder">
         <div class="todoTitleBar">
           <input
             type="text"
@@ -35,7 +32,7 @@
           <img
             src="images/save.png"
             alt="save"
-            id="save"
+            class="save"
             onclick="saveTodo()"
           />
         </div>
