@@ -31,6 +31,7 @@ const removeTask = function(event) {
 
 const setEditorForTodo = function(id) {
   const todo = document.getElementById(id);
+  const editorTasks = document.getElementsByClassName('editorTasks')[0];
   const [title, tasks] = Array.from(todo.children);
   editorTasks.id = `${id}-editor`;
   const titleBar = document.getElementById('updatedTitle');
