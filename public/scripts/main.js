@@ -12,10 +12,10 @@ const getTask = function() {
 const addTask = function(event) {
   const eventClass = event.target.parentNode.className;
   if (event.key === 'Enter' && event.target.value !== '') {
-    const newTodoBox =
-      eventClass === 'editorTasks'
-        ? document.getElementsByClassName('editorTasks')[0]
-        : document.querySelector('#todoAdder');
+    const editor = document.getElementsByClassName('todoEditor')[0];
+    const newTodoBox = editor
+      ? document.getElementsByClassName('editorTasks')[0]
+      : document.querySelector('#todoAdder');
     newTodoBox.append(getTask());
     newTodoBox.lastChild.focus();
   }
@@ -32,8 +32,6 @@ const removeTask = function(event) {
 const setEditorForTodo = function(id) {
   const todo = document.getElementById(id);
   const [title, tasks] = Array.from(todo.children);
-  const editorTasks = document.getElementsByClassName('editorTasks')[0];
-  editorTasks.innerHTML = '';
   editorTasks.id = `${id}-editor`;
   const titleBar = document.getElementById('updatedTitle');
   titleBar.value = title.innerText;
@@ -61,6 +59,8 @@ const resetScreen = function() {
   editor.classList.add('noneDisplay');
   const container = document.getElementById('container');
   container.classList.remove('viewDimmed');
+  const editorTasks = document.getElementsByClassName('editorTasks')[0];
+  editorTasks.innerHTML = '';
 };
 
 const getTitleBar = function(title) {
@@ -72,17 +72,11 @@ const getTitleBar = function(title) {
 };
 
 const createTaskElements = function(list, id) {
-  const statusLookup = {
-    true: 'images/checked.png',
-    false: 'images/unchecked.png'
-  };
-  const textStyleLookup = {
-    false: 'savedTask',
-    true: 'taskDone'
-  };
+  const statusLookup = { true: 'checked', false: 'unchecked' };
+  const textStyleLookup = { false: 'savedTask', true: 'taskDone' };
   let html = '<div class="taskBar" onclick="toggleTaskStatus(event)"';
   html += `id=${id}>`;
-  html += `<img src=${statusLookup[list[id].isDone]} class="checkBox">`;
+  html += `<img class="${statusLookup[list[id].isDone]}">`;
   html += `<p class=${textStyleLookup[list[id].isDone]}>${list[id].task}</p>`;
   html += '</div>';
   return html;

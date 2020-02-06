@@ -142,7 +142,17 @@
   overflow: scroll;
 }
 
-.checkBox {
+.checked {
+  content: url('/images/checked.png');
+  width: 20px;
+  height: 20px;
+  margin: 0px;
+  margin-top: 9px;
+  margin-left: 5px;
+}
+
+.unchecked {
+  content: url('/images/unchecked.png');
   width: 20px;
   height: 20px;
   margin: 0px;

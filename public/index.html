@@ -14,7 +14,12 @@
     </div>
     <div class="noneDisplay" id="todoEditor">
       <div class="todoTitleBar">
-        <input type="text" class="todoTitle" id="updatedTitle" />
+        <input
+          type="text"
+          class="todoTitle"
+          id="updatedTitle"
+          onkeypress="addTask(event)"
+        />
         <img src="images/save.png" class="save" onclick="updateTodo(event)" />
       </div>
       <div class="editorTasks"></div>
