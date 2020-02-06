@@ -10,7 +10,6 @@ const getTask = function() {
 };
 
 const addTask = function(event) {
-  const eventClass = event.target.parentNode.className;
   if (event.key === 'Enter' && event.target.value !== '') {
     const editor = document.getElementsByClassName('todoEditor')[0];
     const newTodoBox = editor

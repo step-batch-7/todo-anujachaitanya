@@ -18,7 +18,7 @@ const saveTodo = function() {
   const title = document.getElementById('newTitle').value;
   const todoList = parseTodo(document.getElementsByClassName('task'));
   sendHttpReq.open('POST', '/saveNewTodo');
-  sendHttpReq.send(`title=${title}&tasks=${todoList}`);
+  title && sendHttpReq.send(`title=${title}&tasks=${todoList}`);
 };
 
 const parseTodoForEditor = function(list) {
