@@ -74,9 +74,11 @@ const getTitleBar = function(title) {
 const createTaskElements = function(list, id) {
   const statusLookup = { true: 'checked', false: 'unchecked' };
   const textStyleLookup = { false: 'savedTask', true: 'taskDone' };
-  let html = '<div class="taskBar" onclick="toggleTaskStatus(event)"';
+  let html = '<div class="taskBar"';
   html += `id=${id}>`;
-  html += `<img class="${statusLookup[list[id].isDone]}">`;
+  html += `<img class="${
+    statusLookup[list[id].isDone]
+  }" onclick="toggleTaskStatus(event)">`;
   html += `<p class=${textStyleLookup[list[id].isDone]}>${list[id].task}</p>`;
   html += '</div>';
   return html;
