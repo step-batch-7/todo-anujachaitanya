@@ -21,12 +21,22 @@ const saveTodo = function() {
   sendHttpReq.send(`title=${title}&tasks=${todoList}`);
 };
 
+const parseTodoForEditor = function(list) {
+  const todoList = [];
+  Array.from(list).forEach(todo => {
+    const [id] = todo.id.split('-');
+    const todoText = `${todo.value}__${id}`;
+    todoList.push(todoText);
+  });
+  return todoList.join('**');
+};
+
 const updateTodo = function() {
   const updatedTitle = document.getElementById('updatedTitle').value;
   const todoEditor = document.getElementsByClassName('editorTasks')[0];
   const [todoId] = todoEditor.id.split('-');
   const [...inputs] = Array.from(todoEditor.children);
-  const tasks = parseTodo(inputs);
+  const tasks = parseTodoForEditor(inputs);
   const xml = new XMLHttpRequest();
   xml.onload = function() {
     resetScreen();
