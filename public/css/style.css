@@ -51,6 +51,7 @@
   padding: 5px 10px;
   width: 95%;
   color: whitesmoke;
+  font-family: sans-serif, FontAwesome;
 }
 
 .noneDisplay {
@@ -102,14 +103,6 @@
   height: 60px;
   margin-top: 29px;
   margin-right: 20px;
-}
-
-.search {
-  width: 18px;
-  height: 18px;
-  padding-left: 5px;
-  margin-top: 16px;
-  margin-bottom: 23px;
 }
 
 .todoAdder {
