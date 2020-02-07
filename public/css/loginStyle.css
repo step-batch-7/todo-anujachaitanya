@@ -1,6 +1,7 @@
 body {
   font-family: sans-serif;
-  background-color: white;
+  background: url('../images/background.png');
+  background-size: cover;
 }
 
 .loginBox {
@@ -8,40 +9,64 @@ body {
   width: 450px;
   height: 500px;
   margin: 90px auto;
-  background-color: white;
-  border: 1px solid rgb(192, 189, 189);
-  border-radius: 4px;
+  border: 1px solid rgb(117, 117, 117);
+  border-radius: 8px;
   flex-direction: column;
 }
 
 .logo {
   margin: 40px auto;
+  color: rgb(211, 208, 208);
 }
 
 .input {
   margin: 15px auto;
   height: 20px;
-  border: 1px solid rgb(211, 208, 208);
-  border-radius: 5px;
-  outline: cornflowerblue 0.2px currentColor;
-  font-size: 15px;
+  border: none;
+  border-bottom: 1px solid rgb(211, 208, 208);
+  outline: none;
+  font-size: 18px;
   padding: 10px 15px;
-  width: 85%;
-  background-color: white;
+  width: 80%;
+  background-color: inherit;
+  color: whitesmoke;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row;
 }
 
 .signIn {
   margin: 23px auto;
-  height: 45px;
-  width: 150px;
+  height: 40px;
+  width: 145px;
   font-size: 20px;
-  color: whitesmoke;
+  color: black;
   border: none;
+  outline: none;
   border-radius: 5px;
-  background-color: cornflowerblue;
+  background-color: rgb(180, 175, 175);
 }
 
 .or {
   display: flex;
-  flex-direction: row;
+  flex-flow: row;
+  justify-content: space-around;
+}
+
+.hr {
+  height: fit-content;
+  margin: 12px auto;
+  margin-top: 23px;
+}
+
+#or {
+  color: gray;
+  font-size: 15px;
+}
+.forgotPassword {
+  margin: 37px auto;
+  color: rgb(211, 208, 208);
 }
