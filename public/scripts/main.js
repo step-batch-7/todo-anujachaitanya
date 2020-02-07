@@ -26,7 +26,8 @@ const removeTask = function(event) {
 };
 
 const removeTaskFromEditor = function(event) {
-  const sibling = event.target.previousElementSibling;
+  const sibling = event.target.parentNode.previousSibling.firstChild;
+  console.log(sibling);
   sibling && sibling.focus();
   event.target.parentNode.remove();
 };
