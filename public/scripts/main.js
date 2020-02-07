@@ -11,10 +11,7 @@ const getTask = function() {
 
 const addTask = function(event) {
   if (event.key === 'Enter' && event.target.value !== '') {
-    const editor = document.getElementsByClassName('todoEditor')[0];
-    const newTodoBox = editor
-      ? document.getElementsByClassName('editorTasks')[0]
-      : document.querySelector('#todoAdder');
+    const newTodoBox = document.querySelector('#todoAdder');
     newTodoBox.append(getTask());
     newTodoBox.lastChild.focus();
   }
@@ -28,6 +25,45 @@ const removeTask = function(event) {
   }
 };
 
+const removeTaskFromEditor = function(event) {
+  if (event.key === 'Backspace' && event.target.value === '') {
+    const sibling = event.target.previousElementSibling;
+    sibling && sibling.focus();
+    event.target.parentNode.remove();
+  }
+};
+
+const addTaskOnEditor = function(event) {
+  if (event.key === 'Enter' && event.target.value !== '') {
+    const newTodoBox = document.getElementsByClassName('editorTasks')[0];
+    const id = Math.floor(Math.random() * 100000);
+    newTodoBox.appendChild(getEditorTasks({ id, innerText: '' }));
+    newTodoBox.lastChild.children[0].focus();
+  }
+};
+
+const getTaskForEditor = function(value) {
+  const task = document.createElement('input');
+  task.type = 'text';
+  task.className = 'task';
+  task.onkeypress = addTaskOnEditor;
+  task.onkeyup = removeTaskFromEditor;
+  task.value = value;
+  return task;
+};
+
+const getEditorTasks = function(task) {
+  const taskEditor = document.createElement('div');
+  taskEditor.className = 'taskBarOnEditor';
+  const taskElement = getTaskForEditor(task.innerText);
+  taskEditor.appendChild(taskElement);
+  taskEditor.id = `${task.id}-task`;
+  const deleteLogo = document.createElement('img');
+  deleteLogo.className = 'deleteTodo';
+  taskEditor.appendChild(deleteLogo);
+  return taskEditor;
+};
+
 const setEditorForTodo = function(id) {
   const todo = document.getElementById(id);
   const editorTasks = document.getElementsByClassName('editorTasks')[0];
@@ -36,10 +72,7 @@ const setEditorForTodo = function(id) {
   const titleBar = document.getElementById('updatedTitle');
   titleBar.value = title.innerText;
   Array.from(tasks.children).forEach(task => {
-    const taskBar = getTask();
-    taskBar.value = task.innerText;
-    taskBar.id = `${task.id}-task`;
-    editorTasks.appendChild(taskBar);
+    editorTasks.appendChild(getEditorTasks(task));
   });
 };
 
@@ -61,80 +94,6 @@ const resetScreen = function() {
   container.classList.remove('viewDimmed');
   const editorTasks = document.getElementsByClassName('editorTasks')[0];
   editorTasks.innerHTML = '';
-};
-
-const getTitleBar = function(title) {
-  let html = '<div class="cardTitleBar">';
-  html += `<p class="cardTitle" onclick="setEditor(event)">${title}</p>`;
-  html += '<img class="deleteLogo" onclick="deleteTodo(event)"/>';
-  html += '</div>';
-  return html;
-};
-
-const createTaskElements = function(list, id) {
-  const statusLookup = { true: 'checked', false: 'unchecked' };
-  const textStyleLookup = { false: 'savedTask', true: 'taskDone' };
-  let html = '<div class="taskBar"';
-  html += `id=${id}>`;
-  html += `<img class="${
-    statusLookup[list[id].isDone]
-  }" onclick="toggleTaskStatus(event)">`;
-  html += `<p class=${textStyleLookup[list[id].isDone]}>${list[id].task}</p>`;
-  html += '</div>';
-  return html;
-};
-
-const getTaskBars = function(list) {
-  let html = '<div class="taskList">';
-  const taskHtml = Object.keys(list).map(id => {
-    return createTaskElements(list, id);
-  });
-  html += taskHtml.join('');
-  html += '</div>';
-  return html;
-};
-
-const getCardHtml = function(todo) {
-  const titleBar = getTitleBar(todo.title);
-  const taskBars = getTaskBars(todo.tasks);
-  return titleBar + taskBars;
-};
-
-const getHtmlForTodo = function(todo) {
-  const card = document.createElement('div');
-  card.className = 'todoCard';
-  card.id = todo.id;
-  card.innerHTML = getCardHtml(todo);
-  return card;
-};
-
-const renderTodoAdder = function() {
-  const taskInputs = document.getElementsByClassName('task');
-  Array.from(taskInputs).forEach(inputBox =>
-    inputBox.parentNode.removeChild(inputBox)
-  );
-  const title = document.getElementById('newTitle');
-  title.value = '';
-};
-
-const renderNewTodo = function() {
-  renderTodoAdder();
-  const todo = JSON.parse(this.responseText);
-  const todoList = document.getElementById('todoList');
-  const todoHtml = getHtmlForTodo(todo);
-  todoList.prepend(todoHtml);
-};
-
-const renderTodoList = function() {
-  const todos = JSON.parse(this.responseText);
-  const todoList = document.getElementById('todoList');
-  todoList.innerHTML = '';
-  Object.keys(todos)
-    .sort()
-    .forEach(todo => {
-      const todoHtml = getHtmlForTodo(todos[todo]);
-      todoList.prepend(todoHtml);
-    });
 };
 
 const attachEventListener = function() {

@@ -25,7 +25,7 @@ const parseTodoForEditor = function(list) {
   const todoList = [];
   Array.from(list).forEach(todo => {
     const [id] = todo.id.split('-');
-    const todoText = `${todo.value}__${id}`;
+    const todoText = `${todo.firstChild.value}__${id}`;
     todoList.push(todoText);
   });
   return todoList.join('**');
