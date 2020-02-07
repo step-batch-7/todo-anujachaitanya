@@ -16,7 +16,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 2px solid darkgray;
+  border-bottom: 1px solid darkgray;
+  border-left: 4px solid darkgray;
 }
 
 .todoTitle {

@@ -74,9 +74,17 @@ const toggleTaskStatus = event => {
 };
 
 const deleteTodo = function(event) {
-  const sendHttpReq = new XMLHttpRequest();
-  sendHttpReq.onload = renderTodoList;
-  sendHttpReq.open('POST', '/deleteTodo');
+  const xml = new XMLHttpRequest();
+  xml.onload = renderTodoList;
+  xml.open('POST', '/deleteTodo');
   const id = event.target.parentNode.parentNode.id;
-  sendHttpReq.send(`id=${id}`);
+  xml.send(`id=${id}`);
+};
+
+const searchTodo = function(event) {
+  const title = event.target.value;
+  const xml = new XMLHttpRequest();
+  xml.onload = renderTodoList;
+  xml.open('POST', '/searchTodo');
+  xml.send(`title=${title}`);
 };
