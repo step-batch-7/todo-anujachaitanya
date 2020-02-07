@@ -26,11 +26,9 @@ const removeTask = function(event) {
 };
 
 const removeTaskFromEditor = function(event) {
-  if (event.key === 'Backspace' && event.target.value === '') {
-    const sibling = event.target.previousElementSibling;
-    sibling && sibling.focus();
-    event.target.parentNode.remove();
-  }
+  const sibling = event.target.previousElementSibling;
+  sibling && sibling.focus();
+  event.target.parentNode.remove();
 };
 
 const addTaskOnEditor = function(event) {
@@ -47,7 +45,6 @@ const getTaskForEditor = function(value) {
   task.type = 'text';
   task.className = 'task';
   task.onkeypress = addTaskOnEditor;
-  task.onkeyup = removeTaskFromEditor;
   task.value = value;
   return task;
 };
@@ -60,6 +57,10 @@ const getEditorTasks = function(task) {
   taskEditor.id = `${task.id}-task`;
   const deleteLogo = document.createElement('img');
   deleteLogo.className = 'deleteTodo';
+  deleteLogo.onclick = event => {
+    deleteTask(event);
+    removeTaskFromEditor(event);
+  };
   taskEditor.appendChild(deleteLogo);
   return taskEditor;
 };

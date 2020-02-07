@@ -21,6 +21,16 @@ const saveTodo = function() {
   title && sendHttpReq.send(`title=${title}&tasks=${todoList}`);
 };
 
+const deleteTask = function(event) {
+  const [taskId] = event.target.parentNode.id.split('-');
+  const todo = document.getElementsByClassName('editorTasks')[0];
+  const [todoId] = todo.id.split('-');
+  const xml = new XMLHttpRequest();
+  xml.onload = renderTodoList;
+  xml.open('POST', '/deleteTask');
+  xml.send(`todoId=${todoId}&taskId=${taskId}`);
+};
+
 const parseTodoForEditor = function(list) {
   const todoList = [];
   Array.from(list).forEach(todo => {
@@ -57,10 +67,10 @@ const toggleTaskStatus = event => {
   const element = getTaskElement(event.path);
   const taskId = element.id;
   const todoId = element.parentNode.parentNode.id;
-  const sendHttpReq = new XMLHttpRequest();
-  sendHttpReq.onload = renderTodoList;
-  sendHttpReq.open('POST', '/toggleTaskStatus');
-  sendHttpReq.send(`todoId=${todoId}&taskId=${taskId}`);
+  const xml = new XMLHttpRequest();
+  xml.onload = renderTodoList;
+  xml.open('POST', '/toggleTaskStatus');
+  xml.send(`todoId=${todoId}&taskId=${taskId}`);
 };
 
 const deleteTodo = function(event) {
