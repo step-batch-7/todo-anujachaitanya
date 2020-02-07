@@ -6,14 +6,33 @@
 .heading {
   text-align: center;
   color: whitesmoke;
-  border-bottom: 2px solid darkgray;
+
   padding: 0 15px;
   justify-content: center;
   margin: 35px 0;
 }
 
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 2px solid darkgray;
+}
+
 .todoTitle {
   height: 20px;
+  border: none;
+  border-bottom: 2px solid rgb(197, 194, 194);
+  outline: none;
+  font-size: 20px;
+  padding: 5px 10px;
+  width: 95%;
+  color: whitesmoke;
+}
+
+.searchText {
+  height: 20px;
+  margin-top: 15px;
   border: none;
   border-bottom: 2px solid rgb(197, 194, 194);
   outline: none;
@@ -64,11 +83,30 @@
   justify-content: space-between;
 }
 
+.searchBar {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  width: 300px;
+  height: 60px;
+  margin-top: 25px;
+  margin-right: 20px;
+}
+
+.search {
+  width: 18px;
+  height: 18px;
+  padding-left: 5px;
+  margin-top: 16px;
+  margin-bottom: 23px;
+}
+
 .todoAdder {
   margin: 0 auto;
   width: 400px;
   border-radius: 10px;
   padding: 15px 17px;
+  margin-top: 23px;
 }
 
 .cardTitle {
