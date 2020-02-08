@@ -17,6 +17,11 @@ describe('GET /', () => {
         id: 104
       }
     };
+    const read = sinon.fake.returns(JSON.stringify(data));
+    sinon.replace(fs, 'readFileSync', read);
+    const write = sinon.fake();
+    sinon.replace(fs, 'writeFileSync', write);
+  });
 
   afterEach(() => {
     sinon.restore();
@@ -37,7 +42,6 @@ describe('GET/', () => {
       .expect('Content-Type', 'text/html')
       .expect(404, done);
   });
-
   it('should return css file', done => {
     request(app.serve.bind(app))
       .get('/css/style.css')
@@ -59,6 +63,13 @@ describe('GET/', () => {
       .get('/scripts/main.js')
       .expect('Content-Type', 'application/javascript')
       .expect(200, done);
+  });
+
+  it('should give not found for bad file ', done => {
+    request(app.serve.bind(app))
+      .get('/scripts/mai.js')
+      .expect('Content-Type', 'text/html')
+      .expect(404, done);
   });
 });
 
