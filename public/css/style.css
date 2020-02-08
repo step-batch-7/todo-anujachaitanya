@@ -1,4 +1,4 @@
-* {
+body {
   font-family: sans-serif;
   background-color: rgb(37, 37, 37);
 }
@@ -39,6 +39,7 @@
   padding: 5px 10px;
   width: 95%;
   color: whitesmoke;
+  background-color: inherit;
 }
 
 .searchText {
@@ -51,6 +52,7 @@
   padding: 5px 10px;
   width: 95%;
   color: whitesmoke;
+  background-color: inherit;
 }
 
 .noneDisplay {
@@ -230,4 +232,31 @@
   color: gray;
   font-size: 20px;
   margin: 20px 20px 1px 350px;
+}
+
+.checkbox {
+  display: none;
+}
+
+.checkbox + label > div {
+  height: 35px;
+  width: 55px;
+  background: rgb(77, 76, 76);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  padding: 0 2px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.checkbox:checked + label > div {
+  flex-direction: row-reverse;
+}
+
+.checkbox + label > div > div {
+  height: 30px;
+  width: 28px;
+  border-radius: 50%;
+  background: gray;
 }

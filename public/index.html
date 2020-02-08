@@ -20,9 +20,22 @@
           type="text"
           class="searchText"
           id="searchElement"
-          onkeyup="searchTodo(event)"
           placeholder="Search Todo"
         />
+
+        <div class="toggleSearch">
+          <input
+            class="checkbox"
+            type="checkbox"
+            id="check"
+            onclick="toggleSearch(event)"
+          />
+          <label for="check">
+            <div>
+              <div></div>
+            </div>
+          </label>
+        </div>
       </div>
     </div>
     <div class="noneDisplay" id="todoEditor">

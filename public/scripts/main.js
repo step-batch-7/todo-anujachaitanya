@@ -40,6 +40,22 @@ const addTaskOnEditor = function(event) {
   }
 };
 
+const setSearch = function() {
+  const searchText = document.getElementById('searchElement');
+  searchText.oninput = searchTodo;
+};
+
+const toggleSearch = function(event) {
+  const searchText = document.getElementById('searchElement');
+  if (event.target.checked) {
+    searchText.placeholder = 'Search Task';
+    searchText.oninput = searchTask;
+    return;
+  }
+  searchText.oninput = searchTodo;
+  searchText.placeholder = 'Search Todo';
+};
+
 const getTaskForEditor = function(value) {
   const task = document.createElement('input');
   task.type = 'text';
@@ -104,4 +120,5 @@ const attachEventListener = function() {
 const main = function() {
   attachEventListener();
   getTodos();
+  setSearch();
 };

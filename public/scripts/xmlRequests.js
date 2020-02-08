@@ -81,6 +81,14 @@ const deleteTodo = function(event) {
   xml.send(`id=${id}`);
 };
 
+const searchTask = function(event) {
+  const task = event.target.value;
+  const xml = new XMLHttpRequest();
+  xml.onload = renderTodoList;
+  xml.open('POST', '/searchTask');
+  xml.send(`task=${task}`);
+};
+
 const searchTodo = function(event) {
   const title = event.target.value;
   const xml = new XMLHttpRequest();
