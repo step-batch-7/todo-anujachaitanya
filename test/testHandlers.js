@@ -17,19 +17,6 @@ describe('GET /', () => {
         id: 104
       }
     };
-    const read = sinon.fake.returns(JSON.stringify(data));
-    sinon.replace(fs, 'readFileSync', read);
-    const write = sinon.fake();
-    sinon.replace(fs, 'writeFileSync', write);
-  });
-
-  it('should delete given todo', done => {
-    request(app.serve.bind(app))
-      .post('/deleteTodo')
-      .send('id=104')
-      .expect(/'105'/g)
-      .expect(200, done);
-  });
 
   afterEach(() => {
     sinon.restore();
@@ -42,6 +29,13 @@ describe('GET/', () => {
       .get('/')
       .expect('Content-Type', 'text/html')
       .expect(200, done);
+  });
+
+  it('should return method not allowed ', done => {
+    request(app.serve.bind(app))
+      .put('/')
+      .expect('Content-Type', 'text/html')
+      .expect(404, done);
   });
 
   it('should return css file', done => {
