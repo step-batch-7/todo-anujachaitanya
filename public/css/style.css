@@ -223,6 +223,7 @@ body {
   border-bottom: 1px solid grey;
   outline: none;
   width: 100%;
+  background-color: inherit;
   font-size: 15px;
   padding: 10px 5px 3px;
   color: whitesmoke;
