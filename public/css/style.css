@@ -119,6 +119,7 @@ body {
   font-weight: 700;
   margin-left: 10px;
   color: whitesmoke;
+  cursor: pointer;
 }
 
 .cardTitleBar {

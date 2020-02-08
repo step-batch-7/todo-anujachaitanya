@@ -4,6 +4,39 @@ const fs = require('fs');
 const { app } = require('../lib/handlers');
 
 describe('GET /', () => {
+  beforeEach(() => {
+    const data = {
+      '104': {
+        title: 'Ragini',
+        tasks: { '12': { task: 'hey', isDone: true } },
+        id: 104
+      },
+      '105': {
+        title: 'Ragini',
+        tasks: { '12': { task: 'hey', isDone: true } },
+        id: 104
+      }
+    };
+    const read = sinon.fake.returns(JSON.stringify(data));
+    sinon.replace(fs, 'readFileSync', read);
+    const write = sinon.fake();
+    sinon.replace(fs, 'writeFileSync', write);
+  });
+
+  it('should delete given todo', done => {
+    request(app.serve.bind(app))
+      .post('/deleteTodo')
+      .send('id=104')
+      .expect(/'105'/g)
+      .expect(200, done);
+  });
+
+  afterEach(() => {
+    sinon.restore();
+  });
+});
+
+describe('GET/', () => {
   it('should return index.html if / is given for path', done => {
     request(app.serve.bind(app))
       .get('/')
@@ -14,7 +47,7 @@ describe('GET /', () => {
   it('should return css file', done => {
     request(app.serve.bind(app))
       .get('/css/style.css')
-      .expect('Content-Length', '2084')
+      .expect('Content-Length', '3977')
       .expect('Content-Type', 'text/css')
       .expect(200, done);
   });
@@ -22,7 +55,7 @@ describe('GET /', () => {
   it('should return png file', done => {
     request(app.serve.bind(app))
       .get('/images/save.png')
-      .expect('Content-Length', '18895')
+      .expect('Content-Length', '10513')
       .expect('Content-Type', 'image/png')
       .expect(200, done);
   });
