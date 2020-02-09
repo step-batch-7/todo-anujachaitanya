@@ -1,6 +1,6 @@
 const http = require('http');
 const { stdout } = require('process');
-const { handleRequest } = require('./lib/handlers');
+const { handleRequest } = require('./lib/routers');
 
 const main = function() {
   const server = new http.Server(handleRequest);
