@@ -1,7 +1,7 @@
 const request = require('supertest');
 const sinon = require('sinon');
 const fs = require('fs');
-const { app } = require('../lib/handlers');
+const { handleRequest } = require('../lib/routers');
 
 describe('GET /', () => {
   beforeEach(() => {
@@ -30,20 +30,20 @@ describe('GET /', () => {
 
 describe('GET/', () => {
   it('should return index.html if / is given for path', done => {
-    request(app.serve.bind(app))
+    request(handleRequest)
       .get('/')
       .expect('Content-Type', 'text/html')
       .expect(200, done);
   });
 
   it('should return method not allowed ', done => {
-    request(app.serve.bind(app))
+    request(handleRequest)
       .put('/')
       .expect('Content-Type', 'text/html')
       .expect(404, done);
   });
   it('should return css file', done => {
-    request(app.serve.bind(app))
+    request(handleRequest)
       .get('/css/style.css')
       .expect('Content-Length', '3977')
       .expect('Content-Type', 'text/css')
@@ -51,7 +51,7 @@ describe('GET/', () => {
   });
 
   it('should return png file', done => {
-    request(app.serve.bind(app))
+    request(handleRequest)
       .get('/images/save.png')
       .expect('Content-Length', '10513')
       .expect('Content-Type', 'image/png')
@@ -59,14 +59,14 @@ describe('GET/', () => {
   });
 
   it('should return js file', done => {
-    request(app.serve.bind(app))
+    request(handleRequest)
       .get('/scripts/main.js')
       .expect('Content-Type', 'application/javascript')
       .expect(200, done);
   });
 
   it('should give not found for bad file ', done => {
-    request(app.serve.bind(app))
+    request(handleRequest)
       .get('/scripts/mai.js')
       .expect('Content-Type', 'text/html')
       .expect(404, done);
@@ -76,9 +76,9 @@ describe('GET/', () => {
 describe('POST /', () => {
   before(() => sinon.replace(fs, 'writeFileSync', () => {}));
   it('should run post method on /saveNewTodo', done => {
-    request(app.serve.bind(app))
+    request(handleRequest)
       .post('/saveNewTodo')
-      .send('title=anuja&tasks=anuja')
+      .send({ title: 'anuja', tasks: 'anuja' })
       .expect('Content-Type', 'text/html')
       .expect(200, done);
   });
