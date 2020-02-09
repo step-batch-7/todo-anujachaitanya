@@ -1,9 +1,6 @@
 /* eslint-disable no-magic-numbers */
 const getTodos = function() {
-  const xml = new XMLHttpRequest();
-  xml.onload = renderTodoList;
-  xml.open('GET', '/index.html');
-  xml.send();
+  sendXmlRequest('GET', undefined, '/index.html', renderTodoList);
 };
 
 const parseTodo = function(list) {
@@ -13,22 +10,18 @@ const parseTodo = function(list) {
 };
 
 const saveTodo = function() {
-  const sendHttpReq = new XMLHttpRequest();
-  sendHttpReq.onload = renderNewTodo;
   const title = document.getElementById('newTitle').value;
   const tasks = parseTodo(document.getElementsByClassName('task'));
-  sendHttpReq.open('POST', '/saveNewTodo');
-  title && sendHttpReq.send(JSON.stringify({ title, tasks }));
+  const data = { title, tasks };
+  sendXmlRequest('POST', data, '/saveNewTodo', renderNewTodo);
 };
 
 const deleteTask = function(event) {
   const [taskId] = event.target.parentNode.id.split('-');
   const todo = document.getElementsByClassName('editorTasks')[0];
   const [todoId] = todo.id.split('-');
-  const xml = new XMLHttpRequest();
-  xml.onload = renderTodoList;
-  xml.open('POST', '/deleteTask');
-  xml.send(JSON.stringify({ taskId, todoId }));
+  const data = { taskId, todoId };
+  sendXmlRequest('POST', data, '/deleteTask', renderTodoList);
 };
 
 const parseTodoForEditor = function(list) {
@@ -47,13 +40,12 @@ const updateTodo = function() {
   const [todoId] = todoEditor.id.split('-');
   const [...inputs] = Array.from(todoEditor.children);
   const tasks = parseTodoForEditor(inputs);
-  const xml = new XMLHttpRequest();
-  xml.onload = function() {
+  const renderTodos = function(response) {
     resetScreen();
-    renderTodoList.call({ responseText: this.responseText });
+    renderTodoList(response);
   };
-  xml.open('POST', '/updateTodo');
-  xml.send(JSON.stringify({ updatedTitle, tasks, todoId }));
+  const data = { updatedTitle, tasks, todoId };
+  sendXmlRequest('POST', data, '/updateTodo', renderTodos);
 };
 
 const getTaskElement = function(path) {
@@ -67,32 +59,33 @@ const toggleTaskStatus = event => {
   const element = getTaskElement(event.path);
   const taskId = element.id;
   const todoId = element.parentNode.parentNode.id;
-  const xml = new XMLHttpRequest();
-  xml.onload = renderTodoList;
-  xml.open('POST', '/toggleTaskStatus');
-  xml.send(JSON.stringify({ taskId, todoId }));
+  const data = { taskId, todoId };
+  sendXmlRequest('POST', data, '/toggleTaskStatus', renderTodoList);
 };
 
 const deleteTodo = function(event) {
-  const xml = new XMLHttpRequest();
-  xml.onload = renderTodoList;
-  xml.open('POST', '/deleteTodo');
   const id = event.target.parentNode.parentNode.id;
-  xml.send(JSON.stringify({ id }));
+  const data = { id };
+  sendXmlRequest('POST', data, '/deleteTodo', renderTodoList);
 };
 
 const searchTask = function(event) {
   const task = event.target.value;
-  const xml = new XMLHttpRequest();
-  xml.onload = renderTodoList;
-  xml.open('POST', '/searchTask');
-  xml.send(JSON.stringify({ task }));
+  const data = { task };
+  sendXmlRequest('POST', data, '/searchTask', renderTodoList);
 };
 
 const searchTodo = function(event) {
   const title = event.target.value;
-  const xml = new XMLHttpRequest();
-  xml.onload = renderTodoList;
-  xml.open('POST', '/searchTodo');
-  xml.send(JSON.stringify({ title }));
+  const data = { title };
+  sendXmlRequest('POST', data, '/searchTodo', renderTodoList);
+};
+
+const sendXmlRequest = function(method, data, url, callBack) {
+  const request = new XMLHttpRequest();
+  request.onload = function() {
+    callBack(this.responseText);
+  };
+  request.open(method, url);
+  request.send(JSON.stringify(data));
 };

@@ -52,16 +52,16 @@ const renderTodoAdder = function() {
   title.value = '';
 };
 
-const renderNewTodo = function() {
+const renderNewTodo = function(responseText) {
   renderTodoAdder();
-  const todo = JSON.parse(this.responseText);
+  const todo = JSON.parse(responseText);
   const todoList = document.getElementById('todoList');
   const todoHtml = getHtmlForTodo(todo);
   todoList.prepend(todoHtml);
 };
 
-const renderTodoList = function() {
-  const todos = JSON.parse(this.responseText);
+const renderTodoList = function(responseText) {
+  const todos = JSON.parse(responseText);
   const todoList = document.getElementById('todoList');
   todoList.innerHTML = '';
   Object.keys(todos)
