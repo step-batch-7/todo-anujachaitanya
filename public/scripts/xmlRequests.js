@@ -16,9 +16,9 @@ const saveTodo = function() {
   const sendHttpReq = new XMLHttpRequest();
   sendHttpReq.onload = renderNewTodo;
   const title = document.getElementById('newTitle').value;
-  const todoList = parseTodo(document.getElementsByClassName('task'));
+  const tasks = parseTodo(document.getElementsByClassName('task'));
   sendHttpReq.open('POST', '/saveNewTodo');
-  title && sendHttpReq.send(`title=${title}&tasks=${todoList}`);
+  title && sendHttpReq.send(JSON.stringify({ title, tasks }));
 };
 
 const deleteTask = function(event) {
@@ -28,7 +28,7 @@ const deleteTask = function(event) {
   const xml = new XMLHttpRequest();
   xml.onload = renderTodoList;
   xml.open('POST', '/deleteTask');
-  xml.send(`todoId=${todoId}&taskId=${taskId}`);
+  xml.send(JSON.stringify({ taskId, todoId }));
 };
 
 const parseTodoForEditor = function(list) {
@@ -53,7 +53,7 @@ const updateTodo = function() {
     renderTodoList.call({ responseText: this.responseText });
   };
   xml.open('POST', '/updateTodo');
-  xml.send(`updatedTitle=${updatedTitle}&tasks=${tasks}&todoId=${todoId}`);
+  xml.send(JSON.stringify({ updatedTitle, tasks, todoId }));
 };
 
 const getTaskElement = function(path) {
@@ -70,7 +70,7 @@ const toggleTaskStatus = event => {
   const xml = new XMLHttpRequest();
   xml.onload = renderTodoList;
   xml.open('POST', '/toggleTaskStatus');
-  xml.send(`todoId=${todoId}&taskId=${taskId}`);
+  xml.send(JSON.stringify({ taskId, todoId }));
 };
 
 const deleteTodo = function(event) {
@@ -78,7 +78,7 @@ const deleteTodo = function(event) {
   xml.onload = renderTodoList;
   xml.open('POST', '/deleteTodo');
   const id = event.target.parentNode.parentNode.id;
-  xml.send(`id=${id}`);
+  xml.send(JSON.stringify({ id }));
 };
 
 const searchTask = function(event) {
@@ -86,7 +86,7 @@ const searchTask = function(event) {
   const xml = new XMLHttpRequest();
   xml.onload = renderTodoList;
   xml.open('POST', '/searchTask');
-  xml.send(`task=${task}`);
+  xml.send(JSON.stringify({ task }));
 };
 
 const searchTodo = function(event) {
@@ -94,5 +94,5 @@ const searchTodo = function(event) {
   const xml = new XMLHttpRequest();
   xml.onload = renderTodoList;
   xml.open('POST', '/searchTodo');
-  xml.send(`title=${title}`);
+  xml.send(JSON.stringify({ title }));
 };
