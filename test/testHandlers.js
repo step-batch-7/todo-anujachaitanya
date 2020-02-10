@@ -95,7 +95,7 @@ describe('POST / ', () => {
     const expectedTitle = new RegExp('hii');
     request(handleRequest)
       .post('/searchTask')
-      .send({ todoId: '101', taskId: '46' })
+      .send({ task: 'h' })
       .expect(expectedTitle)
       .expect(200, done);
   });
@@ -104,7 +104,7 @@ describe('POST / ', () => {
     const expectedTitle = new RegExp('hii');
     request(handleRequest)
       .post('/searchTodo')
-      .send({ title: 'hii' })
+      .send({ title: 'h' })
       .expect(expectedTitle)
       .expect(200, done);
   });
