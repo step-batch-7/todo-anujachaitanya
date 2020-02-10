@@ -183,7 +183,7 @@ describe('TodoList', () => {
       let todoList = TodoList.parseAllTodos(data);
       todoList = new TodoList(todoList);
       todoList.updateTodo('100', 'a__88', 'Neha');
-      assert.strictEqual(todoList.todoList['100'].tasks['88'], 'a');
+      assert.strictEqual(todoList.todoList['100'].tasks['88'].task, 'a');
     });
   });
 

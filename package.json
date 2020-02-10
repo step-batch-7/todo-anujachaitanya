@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "export STORAGE_FILE=$(pwd)/test/resources/todoLists.json;mocha",
     "start": "node server.js"
   },
   "repository": {
