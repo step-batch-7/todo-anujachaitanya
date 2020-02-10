@@ -164,6 +164,46 @@ describe('TodoList', () => {
       };
       let todoList = TodoList.parseAllTodos(data);
       todoList = new TodoList(todoList);
+      todoList.updateTodo('100', '', 'Anuja');
+      assert.strictEqual(todoList.todoList['100'].title, 'Anuja');
+    });
+
+    it('should update given todo tasks', () => {
+      const data = {
+        '100': {
+          title: 'Neha',
+          tasks: {
+            '87': { task: 'n', isDone: true },
+            '88': { task: 'e', isDone: false },
+            '89': { task: 'h', isDone: false }
+          },
+          id: 100
+        }
+      };
+      let todoList = TodoList.parseAllTodos(data);
+      todoList = new TodoList(todoList);
+      todoList.updateTodo('100', 'a__88', 'Neha');
+      assert.strictEqual(todoList.todoList['100'].tasks['88'], 'a');
+    });
+  });
+
+  describe('deleteTask', () => {
+    it('should delete the given task in given todo', () => {
+      const data = {
+        '100': {
+          title: 'Neha',
+          tasks: {
+            '87': { task: 'n', isDone: true },
+            '88': { task: 'e', isDone: false },
+            '89': { task: 'h', isDone: false }
+          },
+          id: 100
+        }
+      };
+      let todoList = TodoList.parseAllTodos(data);
+      todoList = new TodoList(todoList);
+      todoList.deleteTask('100', '87');
+      assert.isUndefined(todoList.todoList['100'].tasks['87']);
     });
   });
 });
