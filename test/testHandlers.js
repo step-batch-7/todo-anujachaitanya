@@ -36,6 +36,12 @@ describe('GET/', () => {
       .expect(200, done);
   });
 
+  it('should return all the todos', done => {
+    request(handleRequest)
+      .get('/index.html')
+      .expect(200, done);
+  });
+
   it('should return method not allowed ', done => {
     request(handleRequest)
       .put('/')
@@ -73,14 +79,71 @@ describe('GET/', () => {
   });
 });
 
-describe('POST /', () => {
-  before(() => sinon.replace(fs, 'writeFileSync', () => {}));
+describe('POST / ', () => {
+  beforeEach(() => sinon.replace(fs, 'writeFileSync', () => {}));
+  afterEach(() => sinon.restore());
+  const expectedTitle = new RegExp('anuja');
   it('should run post method on /saveNewTodo', done => {
     request(handleRequest)
       .post('/saveNewTodo')
-      .send({ title: 'anuja', tasks: 'anuja' })
-      .expect('Content-Type', 'text/html')
+      .send(JSON.stringify({ title: 'anuja', tasks: 'anuja' }))
+      .expect(expectedTitle)
       .expect(200, done);
   });
-  after(() => sinon.restore());
+
+  it('should search given task ', done => {
+    const expectedTitle = new RegExp('hii');
+    request(handleRequest)
+      .post('/searchTask')
+      .send({ todoId: '101', taskId: '46' })
+      .expect(expectedTitle)
+      .expect(200, done);
+  });
+
+  it('should search given todo', done => {
+    const expectedTitle = new RegExp('hii');
+    request(handleRequest)
+      .post('/searchTodo')
+      .send({ title: 'hii' })
+      .expect(expectedTitle)
+      .expect(200, done);
+  });
+
+  it('should toggle status of given todo task', done => {
+    const data = { taskId: '87', todoId: '100' };
+    const expectedTitle = new RegExp('hii');
+    request(handleRequest)
+      .post('/toggleTaskStatus')
+      .send(data)
+      .expect(expectedTitle)
+      .expect(200, done);
+  });
+
+  it('should updateGiven todo', done => {
+    const data = { updatedTitle: 'hey', tasks: '', todoId: '100' };
+    const expectedTitle = new RegExp('hey');
+    request(handleRequest)
+      .post('/updateTodo')
+      .send(data)
+      .expect(expectedTitle)
+      .expect(200, done);
+  });
+
+  it('should run post method on /deleteGivenTodo', done => {
+    const expectedTitle = new RegExp('hii');
+    request(handleRequest)
+      .post('/deleteTodo')
+      .send(JSON.stringify({ id: '100' }))
+      .expect(expectedTitle)
+      .expect(200, done);
+  });
+
+  it('should delete Particular task of given task', done => {
+    const expectedTitle = new RegExp('hii');
+    request(handleRequest)
+      .post('/deleteTask')
+      .send({ todoId: '101', taskId: '46' })
+      .expect(expectedTitle)
+      .expect(200, done);
+  });
 });
