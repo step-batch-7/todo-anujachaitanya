@@ -5,17 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/signupStyle.css" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Signup</title>
+    <title>SignUp</title>
   </head>
   <body>
     <div class="loginBox">
       <h1 class="logo">TODO</h1>
-      <input type="text" class="input" placeholder="Username" />
-      <input type="password" class="input" placeholder="Password" />
-      <input type="password" class="input" placeholder="Confirm Password" />
-      <div class="buttons">
-        <button class="signIn">Sign Up</button>
-      </div>
+      <form action="/signUp" method="post">
+        <input
+          type="text"
+          class="input"
+          name="username"
+          placeholder="Username"
+        />
+        <input
+          type="password"
+          class="input"
+          name="password"
+          placeholder="Password"
+        />
+        <input
+          type="password"
+          class="input"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+        />
+        <div class="buttons">
+          <button class="signIn" type="submit">Sign Up</button>
+        </div>
+      </form>
     </div>
   </body>
 </html>
