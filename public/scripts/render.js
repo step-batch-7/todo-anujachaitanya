@@ -61,6 +61,7 @@ const renderNewTodo = function(responseText) {
 };
 
 const renderTodoList = function(responseText) {
+  console.log(responseText);
   const todos = JSON.parse(responseText);
   const todoList = document.getElementById('todoList');
   todoList.innerHTML = '';

@@ -1,6 +1,6 @@
 /* eslint-disable no-magic-numbers */
 const getTodos = function() {
-  sendXmlRequest('GET', undefined, '/index.html', renderTodoList);
+  sendXmlRequest('GET', undefined, '/serveTodos', renderTodoList);
 };
 
 const parseTodo = function(list) {
@@ -87,5 +87,6 @@ const sendXmlRequest = function(method, data, url, callBack) {
     callBack(this.responseText);
   };
   request.open(method, url);
+  request.setRequestHeader('Content-type', 'application/json');
   request.send(JSON.stringify(data));
 };
