@@ -7,7 +7,7 @@ body {
 .loginBox {
   display: flex;
   width: 400px;
-  height: 500px;
+  height: fit-content;
   margin: 90px auto;
   border: 1px solid rgb(117, 117, 117);
   border-radius: 8px;
@@ -33,6 +33,7 @@ body {
 }
 
 .buttons {
+  margin: 23px;
   display: flex;
   justify-content: space-around;
   flex-flow: row;
@@ -48,21 +49,4 @@ body {
   outline-color: rgb(117, 117, 117);
   border-radius: 5px;
   background-color: rgb(180, 175, 175);
-}
-
-.or {
-  display: flex;
-  flex-flow: row;
-  justify-content: space-around;
-}
-
-.hr {
-  height: fit-content;
-  margin: 12px auto;
-  margin-top: 23px;
-}
-
-#or {
-  color: gray;
-  font-size: 15px;
 }
